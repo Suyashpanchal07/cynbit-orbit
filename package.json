@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
-    "@rolldown/binding-win32-x64-msvc": "^1.2.14",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",
     "@types/react": "^19",
