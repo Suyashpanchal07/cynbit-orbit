@@ -70,32 +70,7 @@ npm run build
 
 `npm run test:e2e` runs the Playwright browser journey (Chromium must be installed with `npx playwright install chromium`). The unit suite covers deterministic algorithms and state transitions. No paid model provider is contacted by tests.
 
-## Screenshots
-
-No screenshots are included yet. To add verified captures, save them under `docs/screenshots/` and replace this note with actual image links and viewport details.
-
-## Vercel deployment
-
-1. In the project folder, initialize Git if needed: `git init -b main`, then `git add .` and `git commit -m "Initial Cynbit ORBIT app"`.
-2. Create an empty GitHub repository, add it as `origin` with `git remote add origin <github-repository-url>`, and push with `git push -u origin main`.
-3. In Vercel, choose **Add New → Project**, import the GitHub repository, and keep the detected Next.js build settings.
-4. Add a managed PostgreSQL provider through Vercel Marketplace (for example Neon). Ensure the integration creates a server-side `DATABASE_URL` for Preview and Production environments.
-5. In Vercel project settings, verify `DATABASE_URL` exists for each environment. Never prefix it with `NEXT_PUBLIC_`. Add `AI_API_KEY` only if you want the optional evidence explanation provider; `AI_MODEL` is optional.
-6. Apply the schema from a trusted local environment or migration job connected to the correct database: `npm run db:migrate`. Seed once with `npm run db:seed` if desired.
-7. Deploy/redeploy. `/api/health` should return `status: ok` and `persistenceConfigured: true`; it never returns the connection string.
-8. Smoke test: load `/`, inject a fault, open its incident, run analysis, execute `scale_service`, verify recovery, inspect `/incidents`, run `/evaluations`, reset in `/settings`, and confirm `/api/health`.
-
-If database configuration is missing or the connection fails, production API routes return a clear 503 and do not claim the simulator is persistent. Do not use local filesystem storage or serverless process memory for deployed state.
-
-### Troubleshooting
-
-- **`/api/health` reports degraded:** confirm `DATABASE_URL` is set for the deployment environment, points to PostgreSQL, and the provider allows SSL connections.
-- **Database connection timeout:** use the provider’s serverless/pooling connection string where available; verify Preview and Production have the intended database access.
-- **Migration or seed fails:** confirm the shell has the intended `.env` connection string, then run `npm run db:migrate` before `npm run db:seed`.
-- **Simulator returns 503 in production:** this is intentional when database storage is absent or unavailable; configure PostgreSQL and redeploy.
-- **Playwright cannot launch:** install Chromium with `npx playwright install chromium`, then rerun `npm run test:e2e`.
-
-## 5-minute Cynbit demo
+## Cynbit demo
 
 1. Open Live operations and point out the synthetic-data banner, health score, and service graph.
 2. Load the demo scenario, then inspect the impacted dependency path and updated telemetry.
